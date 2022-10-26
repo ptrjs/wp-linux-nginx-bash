@@ -25,4 +25,11 @@ sudo cp /home/peter/config /etc/nginx/sites-available/wordpress
 sudo rm /etc/nginx/sites-enabled/default
 sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
 
+sudo nginx -t
+sudo systemctl restart nginx
+
+#download wordpress
+wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz
+sudo tar -xzvf /tmp/wordpress.tar.gz -C /var/www
+sudo chown -R www-data.www-data /var/www/wordpress
 
