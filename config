@@ -1,25 +1,3 @@
-#tahap 1
-
-sudo apt update
-sudo apt install nginx mariadb-server mariadb-client php-fpm php-mysql
-
-#tahap 2 
-
-sudo mysql_secure_installation
-
-#tahap 3 
-masuk ke mysql >> mysql
-
-CREATE DATABASE wordpress_db;
-CREATE USER 'wordpress_user'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON wordpress_db.* to wordpress_user@'localhost';
-FLUSH PRIVILEGES;
-exit
-
-#tahap 4
-
-sudo nano /etc/nginx/sites-available/wordpress
-
 server {
         listen 80;
         listen [::]:80;
@@ -28,7 +6,7 @@ server {
 
         index index.php;
 
-        server_name latihan.com, www.latihan.com;
+        server_name 127.0.0.1;
 
         location / {
                 try_files $uri $uri/ =404;
@@ -72,43 +50,3 @@ server {
         }
 
 }
-
-save it
-
-#tahap 5
-
-sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
-
-sudo nginx -t
-sudo systemctl restart nginx / sudo systemctl reload nginx
-
-#tahap 6
-
-wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz
-sudo tar -xzvf /tmp/wordpress.tar.gz -C /var/www
-sudo chown -R www-data.www-data /var/www/wordpress
-
-#tahap 7 hardening server
-
-sudo apt update
-sudo apt install certbot python3-certbot-nginx
-
-#tahap 8 konfirmasi IP6 di set 'yes'
-
-sudo nano /etc/default/ufw / uncomplicated firewall
-sudo ufw disable
-sudo ufw enable
-sudo ufw status
-
-#tahap 9
-
-sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email email@contoh.com -d latihan.com, www.latihan.com
-
-Notes :
-Online Certificate Status Protocol (OCSP) stapling
-
-#tahap 10 crontab scheduler
-
-crontab -e
-0 7 * * * /usr/bin/certbot renew --quiet
