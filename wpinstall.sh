@@ -33,16 +33,16 @@ wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz
 sudo tar -xzvf /tmp/wordpress.tar.gz -C /var/www
 sudo chown -R www-data.www-data /var/www/wordpress
 
-sudo apt update
-sudo apt install certbot python3-certbot-nginx
+#sudo apt update
+#sudo apt install certbot python3-certbot-nginx
 
-sudo nano /etc/default/ufw 
-sudo ufw disable
-sudo ufw enable
-sudo ufw status
+#sudo nano /etc/default/ufw 
+#sudo ufw disable
+#sudo ufw enable
+#sudo ufw status
 
-sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email email@contoh.com -d blabla.com, www.blabla.com
+#sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email email@contoh.com -d blabla.com, www.blabla.com
 
-crontab -e
-0 0 1 * * /usr/bin/certbot renew --quiet
+#crontab -e
+#0 0 1 * * /usr/bin/certbot renew --quiet
 
